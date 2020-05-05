@@ -27,6 +27,8 @@ namespace KickingBgJobs
             services.AddHostedService<JobWatcher>();
             services.AddSingleton<IJobQueue, JobQueue>();
             services.AddSingleton<IJobRunner, JobRunner>();
+
+            services.AddHostedService<FakeAndUglyCron>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

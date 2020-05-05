@@ -1,8 +1,6 @@
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace KickingBgJobs
 {
@@ -28,33 +26,6 @@ namespace KickingBgJobs
                     _jobRunner.Run(job);
                 }
             }
-        }
-    }
-
-    public interface IJobRunner
-    {
-        void Run(Job job);
-
-        Task RunAsync(Job job);
-    }
-
-
-    public class JobRunner : IJobRunner
-    {
-        private readonly ILogger<JobRunner> _logger;
-
-        public JobRunner(ILogger<JobRunner> logger)
-        {
-            _logger = logger;
-        }
-        public void Run(Job job)
-        {
-            _logger.LogInformation("The job {jobId} was ran", job.Id);
-        }
-
-        public Task RunAsync(Job job)
-        {
-            throw new NotImplementedException();
         }
     }
 }
