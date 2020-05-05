@@ -4,6 +4,9 @@ namespace KickingBgJobs
 {
     public interface IJobQueue
     {
+        ChannelReader<Job> Reader { get; }
+        ChannelWriter<Job> Writer { get; }
+
     }
 
     public class JobQueue : IJobQueue
