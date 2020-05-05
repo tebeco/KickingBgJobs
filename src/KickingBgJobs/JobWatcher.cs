@@ -7,9 +7,24 @@ namespace KickingBgJobs
 {
     public class JobWatcher : BackgroundService
     {
-        protected override Task ExecuteAsync(CancellationToken stoppingToken)
+        private readonly IJobQueue _jobQueue;
+
+        public JobWatcher(IJobQueue jobQueue)
         {
-            throw new NotImplementedException();
+            _jobQueue = jobQueue;
+        }
+
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+        {
+            await Task.Yield();
+
+            while (await _jobQueue.Reader.WaitToReadAsync(stoppingToken))
+            {
+                while (_jobQueue.Reader.TryRead(out var job))
+                {
+
+                }
+            }
         }
     }
 }
