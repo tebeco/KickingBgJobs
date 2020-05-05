@@ -12,16 +12,25 @@ namespace KickingBgJobs.Controllers
     public class JobController : ControllerBase
     {
         private readonly ILogger<JobController> _logger;
+        private readonly IJobQueue _jobQueue;
 
-        public JobController(ILogger<JobController> logger)
+        public JobController(ILogger<JobController> logger, IJobQueue jobQueue)
         {
             _logger = logger;
+            _jobQueue = jobQueue;
         }
 
         [HttpGet]
         public ActionResult Get()
         {
-            return Ok();
+            if (_jobQueue.Writer.TryWrite(new Job()))
+            {
+                return Ok();
+            }
+            else
+            {
+                return StatusCode(503);
+            }
         }
     }
 }
