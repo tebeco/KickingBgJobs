@@ -25,6 +25,7 @@ namespace KickingBgJobs
         {
             services.AddControllers();
             services.AddHostedService<JobWatcher>();
+            services.Add<IJobQueue, JobQueue>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
